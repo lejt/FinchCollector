@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+<h1>Finch Family Guide</h1>
+
+{% for finch in finches %}
+    <ul>
+        <li>{{finch.name}}, {{finch.type}}, {{finch.description}}</li>
+    </ul>
+
+{% endfor %}
+{% endblock %}
