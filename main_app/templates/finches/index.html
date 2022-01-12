@@ -5,9 +5,11 @@
 <h1>Finch Family Guide</h1>
 
 {% for finch in finches %}
-    <ul>
-        <li>{{finch.name}}, {{finch.type}}, {{finch.description}}</li>
-    </ul>
+    <div class="collection">
+        <a href="/finches/{{ finch.id }}" class="collection-item">{{ finch.name }}</a>
+        <p>{{ finch.family }}</p>
+        <p>{{ finch.description }}</p>
+    </div>
 
 {% endfor %}
 {% endblock %}

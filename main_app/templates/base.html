@@ -11,10 +11,17 @@
     <title>Finch Collector</title>
 </head>
 <body>
-    <ul>
-        <li><a href='/about'>About</a></li>
-        <li><a href='/finches'>All Finches</a></li>
-    </ul>
+    <nav>
+        <div class="nav-wrapper teal lighten-2">
+            <a href="/" class="left brand-logo">Finch Collector</a>
+            <ul id="nav-mobile" class="right">
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'finches_create' %}">Add a Finch</a></li>
+                <li><a href="{% url 'finches_index' %}">All Finches</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <main>
         {% block content %}
         {% endblock %}
