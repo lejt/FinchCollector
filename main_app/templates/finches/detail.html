@@ -3,15 +3,63 @@
 
 <h1>Finch Details</h1>
 
-<p>{{ finch.name }}</p>
-<p>Family: {{ finch.family }}</p>
-<p>Description: {{ finch.description }}</p>
-<p>Favorite food: {{ finch.fav_food }}</p>
-<p>Weight: {{ finch.weight }}g</p>
+<div class='row'>
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ finch.name }}</span>
+                <p>Family: {{ finch.family }}</p>
+                <p>Description: {{ finch.description }}</p>
+                <p>Favorite food: {{ finch.fav_food }}</p>
+                <p>Weight: {{ finch.weight }}g</p>
+            </div>
+        </div>
+    </div>
+    <div class="col s6">
+        <form action="{% url 'add_feeding' finch.id %}" method="POST">
+            {% csrf_token %}
+            {{ feeding_form.as_p }}
+            <input type="submit" value="Add Feeding" class="btn">
+        </form>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Meal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- .feeding_set.all is the related manager for all feeding objects -->
+                {% for feeding in finch.feeding_set.all %}
+                <tr>
+                    <td>{{ feeding.date }}</td>
+                    <!-- feeding.meal would only display the single letter for meal, MEAL[0] -->
+                    <td>{{ feeding.get_meal_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 <div class="card-action">
     <a href="{% url 'finches_update' finch.id %}">Edit</a>
     <a href="{% url 'finches_delete' finch.id %}">Delete</a>
 </div>
 
+
+<script>
+    // for date selector on feeding form
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+    // for meal dropdown on feeding form
+    const selectEl = document.getElementById('id_meal');
+    M.FormSelect.init(selectEl);
+</script>
 {% endblock %}
