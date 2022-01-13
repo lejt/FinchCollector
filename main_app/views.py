@@ -20,13 +20,13 @@ def finches_index(request):
 
 def finches_detail(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
-
+    birdacc = BirdAcc.objects.all()
     # instantiate FeedingForm to be rendered to template
     feeding_form = FeedingForm()
     return render(
         request, 
         'finches/detail.html',
-        {'finch': finch, 'feeding_form': feeding_form}
+        {'finch': finch, 'feeding_form': feeding_form, 'birdacc': birdacc}
     )
 
 # class based views below:
@@ -55,4 +55,22 @@ def add_feeding(request, finch_id):
 
 class BirdAccList(ListView):
     model = BirdAcc
-    
+
+class BirdAccDetail(DetailView):
+    model = BirdAcc
+
+class BirdAccCreate(CreateView):
+    model = BirdAcc
+    fields = '__all__'
+
+class BirdAccUpdate(UpdateView):
+    model = BirdAcc
+    fields = ['item', 'description']
+
+class BirdAccDelete(DeleteView):
+    model = BirdAcc
+    success_url = '/birdacc/'
+
+def assoc_birdacc(request, finch_id, birdacc_id):
+    Finch.objects.get(id=finch_id).birdacc.add(birdacc_id)
+    return redirect('finches_detail', finch_id=finch_id)

@@ -48,6 +48,23 @@
     <a href="{% url 'finches_delete' finch.id %}">Delete</a>
 </div>
 
+<h3>{{ finch.name }}'s Accessories</h3>
+{% if finch.birdacc.count %}
+    {% for acc in finch.birdacc.all %}
+        {{ acc.item }}
+    {% endfor %}
+{% endif %}
+
+<h3>List of Available Accesssories</h3>
+{% if birdacc.count %}
+    {% for acc in birdacc.all %}
+        <p>{{ acc.item }}</p>
+        <form action="{% url 'assoc_birdacc' finch.id acc.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Add</button>
+        </form>
+    {% endfor %}
+{% endif %}
 
 <script>
     // for date selector on feeding form

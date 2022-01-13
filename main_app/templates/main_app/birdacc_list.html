@@ -4,4 +4,9 @@
 
 <h1>Bird Accessories</h1>
 
+{% for birdacc in birdacc_list %}
+    <a href="{% url 'birdacc_detail' birdacc.id %}">{{ birdacc.item }}</a>
+    <p>Description: {{ birdacc.description }}</p>
+{% endfor %}
+
 {% endblock %}

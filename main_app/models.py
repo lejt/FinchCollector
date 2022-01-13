@@ -16,7 +16,7 @@ class BirdAcc(models.Model):
         return self.item
 
     def get_absolute_url(self):
-        return reverse('INSERT PATH HERE', kwargs={})
+        return reverse('birdacc_detail', kwargs={'pk': self.id})
 
 class Finch(models.Model):
     name = models.CharField(max_length=20)

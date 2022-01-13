@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>bird acc details page</h1>
+
+<p>Name: {{ birdacc.item }}</p>
+<p>Description: {{ birdacc.description }}</p>
+
+<a href="{% url 'birdacc_update' birdacc.id %}">Edit</a>
+<a href="{% url 'birdacc_delete' birdacc.id %}">Delete</a>
+
+{% endblock %}
