@@ -7,7 +7,7 @@
 {% for finch in finches %}
     <div class="collection">
         <a href="/finches/{{ finch.id }}" class="collection-item">{{ finch.name }}</a>
-        <p>{{ finch.family }}</p>
+        <p>Family: {{ finch.family }}</p>
         <p>{{ finch.description }}</p>
     </div>
 

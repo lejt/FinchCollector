@@ -20,7 +20,7 @@ def finches_index(request):
 
 def finches_detail(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
-    birdacc = BirdAcc.objects.all()
+    birdacc = BirdAcc.objects.exclude(id__in=finch.birdacc.all().values_list('id'))
     # instantiate FeedingForm to be rendered to template
     feeding_form = FeedingForm()
     return render(

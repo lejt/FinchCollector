@@ -13,6 +13,10 @@
                 <p>Favorite food: {{ finch.fav_food }}</p>
                 <p>Weight: {{ finch.weight }}g</p>
             </div>
+            <div class="card-action">
+                <a href="{% url 'finches_update' finch.id %}">Edit</a>
+                <a href="{% url 'finches_delete' finch.id %}">Delete</a>
+            </div>
         </div>
     </div>
     <div class="col s6">
@@ -42,29 +46,50 @@
     </div>
 </div>
 
+<hr>
 
-<div class="card-action">
-    <a href="{% url 'finches_update' finch.id %}">Edit</a>
-    <a href="{% url 'finches_delete' finch.id %}">Delete</a>
+<div class="row">
+    <div class="col s6">
+        <h3>{{ finch.name }}'s Accessories</h3> 
+        {% if finch.birdacc.count %}
+            {% for acc in finch.birdacc.all %}
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">
+                        <p>{{ acc.item }}</p>
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h5>No Accessories Given</h5>
+        {% endif %}
+    </div>
+    
+    <div class="col s6">
+        <h3>List of Available Accesssories</h3>
+        {% if birdacc.count %}
+            {% for acc in birdacc.all %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <p>{{ acc.item }}</p>
+                        </span>
+                    </div>
+                    <div class="card-action">
+                        <form action="{% url 'assoc_birdacc' finch.id acc.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Add</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>Already has ALL the Accessories Available</h5>
+        {% endif %}
+    </div>
 </div>
 
-<h3>{{ finch.name }}'s Accessories</h3>
-{% if finch.birdacc.count %}
-    {% for acc in finch.birdacc.all %}
-        {{ acc.item }}
-    {% endfor %}
-{% endif %}
-
-<h3>List of Available Accesssories</h3>
-{% if birdacc.count %}
-    {% for acc in birdacc.all %}
-        <p>{{ acc.item }}</p>
-        <form action="{% url 'assoc_birdacc' finch.id acc.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn">Add</button>
-        </form>
-    {% endfor %}
-{% endif %}
 
 <script>
     // for date selector on feeding form
