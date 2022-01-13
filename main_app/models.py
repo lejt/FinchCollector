@@ -8,13 +8,25 @@ MEALS = (
     ('D', 'Dinner'),
 )
 
-# Create your models here.
+class BirdAcc(models.Model):
+    item = models.CharField(max_length=50)
+    description = models.TextField(max_length=200)
+
+    def __str__(self):
+        return self.item
+
+    def get_absolute_url(self):
+        return reverse('INSERT PATH HERE', kwargs={})
+
 class Finch(models.Model):
     name = models.CharField(max_length=20)
     family = models.CharField(max_length=50)
     description = models.TextField(max_length=300)
     fav_food = models.CharField(max_length=150)
     weight = models.IntegerField()
+
+    # M:M
+    birdacc = models.ManyToManyField(BirdAcc)
 
     def __str__(self):
         return self.name

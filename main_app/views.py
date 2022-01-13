@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Finch
+from .models import BirdAcc, Finch
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from .forms import FeedingForm
 
 # from .models import finches as finches
@@ -51,3 +52,7 @@ def add_feeding(request, finch_id):
         new_feeding.save()
     
     return redirect('finches_detail', finch_id=finch_id)
+
+class BirdAccList(ListView):
+    model = BirdAcc
+    
